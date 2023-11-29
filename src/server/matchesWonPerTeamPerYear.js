@@ -2,23 +2,35 @@ const matchesData=require('../data/matches.json')
 const fs=require('fs')
 const saveToJson=require('./saveToJson')
 
-function calculateMatchesWonPerTeamPerYear(matchesData) {
-  const matchesWonPerTeamPerYear = {}
+// function calculateMatchesWonPerTeamPerYear(matchesData) {
+//   const matchesWonPerTeamPerYear = {}
 
-  for (let i = 0; i < matchesData.length; i++) {
-    const { season, winner } = matchesData[i]
+//   for (let i = 0; i < matchesData.length; i++) {
+//     const { season, winner } = matchesData[i]
 
-    if (winner) {
+//     if (winner) {
       
-      matchesWonPerTeamPerYear[season] = matchesWonPerTeamPerYear[season] || {}
+//       matchesWonPerTeamPerYear[season] = matchesWonPerTeamPerYear[season] || {}
 
       
-      matchesWonPerTeamPerYear[season][winner] = (matchesWonPerTeamPerYear[season][winner] || 0) + 1
-    }
-  }
-    return matchesWonPerTeamPerYear
-    }
+//       matchesWonPerTeamPerYear[season][winner] = (matchesWonPerTeamPerYear[season][winner] || 0) + 1
+//     }
+//   }
+//     return matchesWonPerTeamPerYear
+//     }
 
+function calculateMatchesWonPerTeamPerYear(matchesData){
+    return matchesData.reduce((matchesWonPerTeamPerYear,match) => {
+      const season=match.season
+      const winner=match.winner
+
+      if(winner){
+        matchesWonPerTeamPerYear[season]=matchesWonPerTeamPerYear[season]||{}
+        matchesWonPerTeamPerYear[season][winner]=(matchesWonPerTeamPerYear[season][winner] || 0)+1
+      }
+      return matchesWonPerTeamPerYear
+    },{})
+}
 
 saveToJson('./src/public/output/matchesWonPerTeamPerYear.json', calculateMatchesWonPerTeamPerYear(matchesData))
   
