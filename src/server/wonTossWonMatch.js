@@ -22,3 +22,4 @@ function wonTossWonMatch(matchesData){
 saveToJson('./src/public/output/wonTossWonMatch.json', wonTossWonMatch(matchesData))
 
 
+module.exports=wonTossWonMatch

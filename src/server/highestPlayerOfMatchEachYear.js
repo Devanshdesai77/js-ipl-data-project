@@ -35,3 +35,4 @@ function highestPlayerOfMatchEachYear(matchesData) {
 }
 saveToJson('./src/public/output/highestPlayerOfMatchEachYear.json', highestPlayerOfMatchEachYear(matchesData))
 
+module.exports=highestPlayerOfMatchEachYear
