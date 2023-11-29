@@ -52,4 +52,4 @@ function strikeRateOfBatsmanEachYear(deliveriesData,matchesData){
 
 saveToJson('./src/public/output/strikeRatePerBatsmanEachYear.json', strikeRateOfBatsmanEachYear(deliveriesData,matchesData))
 
-
+module.exports=strikeRateOfBatsmanEachYear

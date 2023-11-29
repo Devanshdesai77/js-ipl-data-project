@@ -39,7 +39,7 @@ function top10EconomicalBowler(deliveriesData, matchesData) {
     const bowlersWithEconomy = Object.keys(runsByBowler).map((bowler) => {
         const runs = runsByBowler[bowler]
         const balls = ballsByBowler[bowler]
-        const economy = balls > 0 ? (runs / balls) * 6 : 0
+        const economy = (balls > 0 ? (runs / balls) * 6 : 0).toFixed(2)
          
         return { bowler, economy, runs, balls }
       })
@@ -56,3 +56,4 @@ function top10EconomicalBowler(deliveriesData, matchesData) {
 
 saveToJson('./src/public/output/top10EconomicalBowler.json', top10EconomicalBowler(deliveriesData, matchesData))
 
+module.exports=top10EconomicalBowler

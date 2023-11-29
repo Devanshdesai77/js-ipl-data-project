@@ -16,9 +16,9 @@ function bestEconomyInSuperOver(deliveriesData){
         const legBye=parseInt(delivery.legbye_runs,10)
         const bye=parseInt(delivery.bye_runs,10)
 
-        
-        runsByBowler[bowler] = (runsByBowler[bowler] || 0) + totalRuns-legBye-bye
-
+        if(legBye===0 && bye===0){
+        runsByBowler[bowler] = (runsByBowler[bowler] || 0) +totalRuns
+        }
         if (!isWide && !isNoBall) {
             ballsByBowler[bowler] = (ballsByBowler[bowler] || 0) + 1
         }
@@ -41,7 +41,7 @@ function bestEconomyInSuperOver(deliveriesData){
 
 saveToJson('./src/public/output/bestEconomyInSuperOver.json',bestEconomyInSuperOver(deliveriesData))
 
-
+module.exports=bestEconomyInSuperOver
 
 
 

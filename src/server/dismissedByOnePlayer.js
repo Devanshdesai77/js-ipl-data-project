@@ -34,3 +34,4 @@ function dismissedByOnePlayer(deliveriesData) {
 saveToJson('./src/public/output/dismissedByOnePlayer.json',dismissedByOnePlayer(deliveriesData))
 
         
+module.exports=dismissedByOnePlayer

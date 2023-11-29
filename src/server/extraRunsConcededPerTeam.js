@@ -30,3 +30,4 @@ function extraRunsConcededPerTeam(deliveriesData, matchesData) {
 saveToJson('./src/public/output/extraRunsConcededPerTeamin2016.json',extraRunsConcededPerTeam(deliveriesData,matchesData))
 
 
+module.exports=extraRunsConcededPerTeam
