@@ -1,5 +1,7 @@
-const csvConverter = require('./csvToJsonConverter')
+const matchesData = require('../data/matches.json')
+const deliveriesData=require('../data/deliveries.json')
 const fs = require('fs')
+const saveToJson=require('./saveToJson')
 
 function extraRunsConcededPerTeam(deliveriesData, matchesData) {
     const matchIdToSeason = {}
@@ -23,34 +25,8 @@ function extraRunsConcededPerTeam(deliveriesData, matchesData) {
             extraRunsConcededPerTeam[bowlingTeam] += extraRuns
         }
     }
-    saveToJson('./src/public/output/extraRunsConcededPerTeamin2016.json', extraRunsConcededPerTeam)
+    return extraRunsConcededPerTeam
 }
-
-function saveToJson(filePath, data) {
-    fs.writeFile(filePath, JSON.stringify(data, null, 2), (err) => {
-        if (err) {
-            console.error('Error writing JSON file:', err)
-        } else {
-            console.log(`Data saved to ${filePath}`)
-        }
-    });
-}
-
-csvConverter.convertCsvToJson('deliveries', (error, deliveriesData) => {
-    if (error) {
-        console.log('Error:', error)
-    }
-    else {
-        console.log('Deliveries Data: ', deliveriesData)
-        csvConverter.convertCsvToJson('matches', (error, matchesData) => {
-            if (error) {
-                console.log('Error:', error)
-            } else {
-                console.log('MatchesData: ', matchesData)
-                extraRunsConcededPerTeam(deliveriesData,matchesData)
-            }
-        })
+saveToJson('./src/public/output/extraRunsConcededPerTeamin2016.json',extraRunsConcededPerTeam(deliveriesData,matchesData))
 
 
-    }
-})

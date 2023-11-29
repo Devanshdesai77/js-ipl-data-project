@@ -1,5 +1,7 @@
-const csvConverter = require('./csvToJsonConverter')
+const matchesData = require('../data/matches.json')
+const deliveriesData=require('../data/deliveries.json')
 const fs = require('fs')
+const saveToJson=require('./saveToJson')
 
 function highestPlayerOfMatchEachYear(matchesData) {
     const playerofMatchEachYear = {}
@@ -28,25 +30,8 @@ function highestPlayerOfMatchEachYear(matchesData) {
         })
         highestPlayerOfMatch[season]={player:highestPlayer,count: highestCount}
     })
-  
-    saveToJson('./src/public/output/highestPlayerOfMatchEachYear.json', highestPlayerOfMatch)
-}
-
-function saveToJson(filePath, data) {
-    fs.writeFile(filePath, JSON.stringify(data, null, 2), (err) => {
-        if (err) {
-            console.error('Error writing JSON file:', err)
-        } else {
-            console.log(`Data saved to ${filePath}`)
-        }
-    })
-}
-
-csvConverter.convertCsvToJson('matches', (error, matchesData) => {
-    if (error) {
-      console.error('Error:', error)
-    } else {
+    return highestPlayerOfMatch
     
-      highestPlayerOfMatchEachYear(matchesData)
-    }
-  })
+}
+saveToJson('./src/public/output/highestPlayerOfMatchEachYear.json', highestPlayerOfMatchEachYear(matchesData))
+

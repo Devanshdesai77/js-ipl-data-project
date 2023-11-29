@@ -1,5 +1,6 @@
-const csvConverter=require('./csvToJsonConverter')
+const matchesData=require('../data/matches.json')
 const fs=require('fs')
+const saveToJson=require('./saveToJson')
 
 function wonTossWonMatch(matchesData){
     const result={}
@@ -15,27 +16,9 @@ function wonTossWonMatch(matchesData){
         }
 
     }
-    saveToJson('./src/public/output/wonTossWonMatch.json', result)
+    return result
+    
 }
+saveToJson('./src/public/output/wonTossWonMatch.json', wonTossWonMatch(matchesData))
 
-function saveToJson(filePath, data) {
-    fs.writeFile(filePath, JSON.stringify(data, null, 2), (err) => {
-        if (err) {
-            console.error('Error writing JSON file:', err)
-        } else {
-            console.log(`Data saved to ${filePath}`)
-        }
-    })
-}
 
-csvConverter.convertCsvToJson('matches', (error, matchesData) => {
-    if (error) {
-      console.error('Error:', error)
-    } else {
-      // Use matchesData in your program
-      console.log('Matches Data:', matchesData)
-  
-      // Call the function with matchesData
-      wonTossWonMatch(matchesData)
-    }
-  })

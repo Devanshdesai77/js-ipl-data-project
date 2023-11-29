@@ -1,5 +1,6 @@
-const csvConverter = require('./csvToJsonConverter')
+const deliveriesData = require('../data/deliveries.json')
 const fs = require('fs')
+const saveToJson=require('./saveToJson')
 
 function dismissedByOnePlayer(deliveriesData) {
     const dismissedCount = {}
@@ -27,25 +28,9 @@ function dismissedByOnePlayer(deliveriesData) {
             }
         })
     })
-
-    saveToJson('./src/public/output/dismissedByOnePlayer.json', highestDismissalPlayer)
+    return highestDismissalPlayer
 }
 
-function saveToJson(filePath, data) {
-    fs.writeFile(filePath, JSON.stringify(data, null, 2), (err) => {
-        if (err) {
-            console.error('Error writing JSON file:', err)
-        } else {
-            console.log(`Data saved to ${filePath}`)
-        }
-    })
-}
+saveToJson('./src/public/output/dismissedByOnePlayer.json',dismissedByOnePlayer(deliveriesData))
 
-csvConverter.convertCsvToJson('deliveries', (error, deliveriesData) => {
-    if (error) {
-        console.log('Error:', error)
-    } else {
-        console.log('Deliveries Data: ', deliveriesData)
-        dismissedByOnePlayer(deliveriesData)
-    }
-})
+        

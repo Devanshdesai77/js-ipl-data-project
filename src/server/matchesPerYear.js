@@ -1,34 +1,21 @@
-const csvConverter = require('./csvToJsonConverter')
+const matchesData=require('../data/matches.json')
 const fs = require('fs')
+const saveToJson=require('./saveToJson')
 
-function calculateMatchesPerYear(matchesData) {
+
+
+function calculateMatchesPerYear(Data) {
   const matchesPerYear = {}
 
-  for (let i = 0; i < matchesData.length; i++) {
-    const { season } = matchesData[i]
+  for (let i = 0; i < Data.length; i++) {
+    const { season } = Data[i]
     matchesPerYear[season] = (matchesPerYear[season] || 0) + 1
   }
-
-
-  saveToJson('./src/public/output/matchesPerYear.json', matchesPerYear)
+ return matchesPerYear
 }
 
 
-function saveToJson(filePath, data) {
-  fs.writeFile(filePath, JSON.stringify(data, null, 2), (err) => {
-    if (err) {
-      console.error('Error writing JSON file:', err)
-    } else {
-      console.log(`Data saved to ${filePath}`)
-    }
-  });
-}
 
+saveToJson('./src/public/output/matchesPerYear.json',calculateMatchesPerYear(matchesData))
 
-csvConverter.convertCsvToJson('matches', (error, matchesData) => {
-  if (error) {
-    console.error('Error:', error)
-  } else {
-    calculateMatchesPerYear(matchesData)
-  }
-})
+module.exports=calculateMatchesPerYear

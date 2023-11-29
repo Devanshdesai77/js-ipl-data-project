@@ -1,5 +1,7 @@
-const csvConverter = require('./csvToJsonConverter')
+const matchesData = require('../data/matches.json')
 const fs = require('fs')
+const deliveriesData=require('../data/deliveries.json')
+const saveToJson=require('./saveToJson')
 
 function top10EconomicalBowler(deliveriesData, matchesData) {
     const matchIdToSeason = {}
@@ -48,36 +50,9 @@ function top10EconomicalBowler(deliveriesData, matchesData) {
     
       const top10EconomicalBowlers = bowlersWithEconomy.slice(0, 10)
     
+    return top10EconomicalBowlers
     
-    saveToJson('./src/public/output/top10EconomicalBowler.json', top10EconomicalBowlers)
 }
 
-function saveToJson(filePath, data) {
-    fs.writeFile(filePath, JSON.stringify(data, null, 2), (err) => {
-        if (err) {
-            console.error('Error writing JSON file:', err)
-        } else {
-            console.log(`Data saved to ${filePath}`)
-        }
-    })
-}
-
-csvConverter.convertCsvToJson('deliveries', (error, deliveriesData) => {
-    if (error) {
-        console.log('Error:', error)
-    }
-    else {
-        
-        csvConverter.convertCsvToJson('matches', (error, matchesData) => {
-            if (error) {
-                console.log('Error:', error)
-            } else {
-                
-                top10EconomicalBowler(deliveriesData, matchesData)
-            }
-        })
-
-
-    }
-})
+saveToJson('./src/public/output/top10EconomicalBowler.json', top10EconomicalBowler(deliveriesData, matchesData))
 

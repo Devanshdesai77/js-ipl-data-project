@@ -1,5 +1,6 @@
 const fs=require('fs')
-const csvConverter=require('./csvToJsonConverter')
+const deliveriesData=require('../data/deliveries.json')
+const saveToJson=require('./saveToJson')
 
 function bestEconomyInSuperOver(deliveriesData){
     const superOverData=deliveriesData.filter((delivery) => delivery.is_super_over === '1')
@@ -34,28 +35,13 @@ function bestEconomyInSuperOver(deliveriesData){
     
     bowlersWithEconomy.sort((a, b) => a.economy - b.economy)
     const bestEconomyBowler = bowlersWithEconomy[0]
-
-  saveToJson('./src/public/output/bestEconomyInSuperOver.json', bestEconomyBowler)
+    
+  return bestEconomyBowler
 }
 
-function saveToJson(filePath, data) {
-    fs.writeFile(filePath, JSON.stringify(data, null, 2), (err) => {
-        if (err) {
-            console.error('Error writing JSON file:', err)
-        } else {
-            console.log(`Data saved to ${filePath}`)
-        }
-    })
-}
+saveToJson('./src/public/output/bestEconomyInSuperOver.json',bestEconomyInSuperOver(deliveriesData))
 
-csvConverter.convertCsvToJson('deliveries', (error, deliveriesData) => {
-    if (error) {
-        console.log('Error:', error)
-    }
-    else {
-        
-        bestEconomyInSuperOver(deliveriesData)
-    }
-})
+
+
 
 

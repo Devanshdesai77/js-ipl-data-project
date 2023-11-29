@@ -1,5 +1,7 @@
-const csvConverter=require('./csvToJsonConverter')
+const matchesData=require('../data/matches.json')
+const deliveriesData=require('../data/deliveries.json')
 const fs=require('fs')
+const saveToJson=require('./saveToJson')
 
 function strikeRateOfBatsmanEachYear(deliveriesData,matchesData){
     const matchIdToSeason = {}
@@ -43,36 +45,11 @@ function strikeRateOfBatsmanEachYear(deliveriesData,matchesData){
             strikeRatePerBatsman[batsman][season]=strikeRate
         })
     })
+    return strikeRatePerBatsman
 
-    saveToJson('./src/public/output/strikeRatePerBatsmanEachYear.json', strikeRatePerBatsman)
+    
 }
 
-function saveToJson(filePath, data) {
-    fs.writeFile(filePath, JSON.stringify(data, null, 2), (err) => {
-        if (err) {
-            console.error('Error writing JSON file:', err)
-        } else {
-            console.log(`Data saved to ${filePath}`)
-        }
-    })
-}
+saveToJson('./src/public/output/strikeRatePerBatsmanEachYear.json', strikeRateOfBatsmanEachYear(deliveriesData,matchesData))
 
-csvConverter.convertCsvToJson('deliveries', (error, deliveriesData) => {
-    if (error) {
-        console.log('Error:', error)
-    }
-    else {
-        console.log('Deliveries Data: ', deliveriesData)
-        csvConverter.convertCsvToJson('matches', (error, matchesData) => {
-            if (error) {
-                console.log('Error:', error)
-            } else {
-                console.log('MatchesData: ', matchesData)
-                strikeRateOfBatsmanEachYear(deliveriesData,matchesData)
-            }
-        })
-
-
-    }
-})
 
