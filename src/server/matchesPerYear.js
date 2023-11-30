@@ -1,8 +1,6 @@
-const matchesData=require('../data/matches.json')
-const fs = require('fs')
-const saveToJson=require('./saveToJson')
-
-
+const matchesData = require("../data/matches.json");
+const fs = require("fs");
+const saveToJson = require("./saveToJson");
 
 // function calculateMatchesPerYear(data) {
 //   const matchesPerYear = {}
@@ -14,16 +12,17 @@ const saveToJson=require('./saveToJson')
 //  return matchesPerYear
 // }
 
-function calculateMatchesPerYear(data){
-  return data.reduce((matchesPerYear,match) => {
-    const season=match.season
-    matchesPerYear[season]=(matchesPerYear[season]||0)+1
-    return matchesPerYear
-  },{})
+function calculateMatchesPerYear(data) {
+  return data.reduce((matchesPerYear, match) => {
+    const season = match.season;
+    matchesPerYear[season] = (matchesPerYear[season] || 0) + 1;
+    return matchesPerYear;
+  }, {});
 }
 
+saveToJson(
+  "./src/public/output/matchesPerYear.json",
+  calculateMatchesPerYear(matchesData)
+);
 
-
-saveToJson('./src/public/output/matchesPerYear.json',calculateMatchesPerYear(matchesData))
-
-module.exports=calculateMatchesPerYear
+module.exports = calculateMatchesPerYear;
