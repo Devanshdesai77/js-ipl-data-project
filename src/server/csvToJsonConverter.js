@@ -38,22 +38,14 @@ function convertCsvToJson(csvFileName, outputFilePath, callback) {
 const matchesOutputFilePath = "./src/data/matches.json";
 const deliveriesOutputFilePath = "./src/data/deliveries.json";
 
-convertCsvToJson(
-  "matches",
-  matchesOutputFilePath,
-  (errorMatches, dataMatches) => {
-    if (errorMatches) {
-      console.error(errorMatches);
-    }
+convertCsvToJson("matches", matchesOutputFilePath, (errorMatches) => {
+  if (errorMatches) {
+    console.error(errorMatches);
   }
-);
+});
 
-convertCsvToJson(
-  "deliveries",
-  deliveriesOutputFilePath,
-  (errorDeliveries, dataDeliveries) => {
-    if (errorDeliveries) {
-      console.error(errorDeliveries);
-    }
+convertCsvToJson("deliveries", deliveriesOutputFilePath, (errorDeliveries) => {
+  if (errorDeliveries) {
+    console.error(errorDeliveries);
   }
-);
+});

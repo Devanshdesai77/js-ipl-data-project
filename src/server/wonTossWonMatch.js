@@ -1,5 +1,4 @@
 const matchesData = require("../data/matches.json");
-const fs = require("fs");
 const saveToJson = require("./saveToJson");
 
 // function wonTossWonMatch(matchesData){
